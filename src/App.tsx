@@ -4,45 +4,54 @@ function App() {
   const [firstOperand, setFirstOperand] = useState("0");
   const [secondOperand, setSecondOperand] = useState();
 
-  const operations = [".", "/", "+", "-", "*"];
+  const operations = ["/", "+", "-", "*"];
   const equals = "=";
+  const dot = ".";
 
-  const choose = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const choose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
 
-    const isFirstValueOperation = operations.some((operation) =>
-      value.startsWith(operation)
-    );
-
-    if (operations.includes(firstOperand.slice(-1))) {
-      console.log(firstOperand);
-      return;
-    }
-    // if (operations.some(operation => firstOperand.includes(operation))) {
-    //   console.log(firstOperand);
-    //   return;
-    // }
-
-    if (isFirstValueOperation) {
-      setFirstOperand(firstOperand + value);
-    }
-  };
-
-  const chooseOperator = (e) => {
-    const value = e.target.id;
-    console.log(value);
-    
-    if (operations.some(operation => firstOperand.includes(operation))) return;
+    // const isFirstValueOperation = operations.some((operation) =>
+    //   value.startsWith(operation)
+    // );
+    // console.log(isFirstValueOperation)
     if (firstOperand === "0") {
-      setFirstOperand(prev => prev + value);
+      setFirstOperand("");
     }
-  };
-  
-  
-  
+    setFirstOperand((prev) => prev + value);
 
+    // if (isFirstValueOperation) {
+    //   setFirstOperand(firstOperand + value);
+    // }
+  };
+
+  const chooseOperator = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const value = (e.target as HTMLButtonElement).id;
+
+    console.log(value);
+
+    if (operations.some((operation) => firstOperand.includes(operation)))
+      return;
+    // if (firstOperand === "0") {
+    // }
+    setFirstOperand((prev) => prev + value);
+  };
 
   const chooseEquals = () => {};
+
+  const chooseDot = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const value = (e.target as HTMLButtonElement).id;
+
+    if(firstOperand === "0" && !firstOperand.includes(".")){
+      console.log("ako je nula i nema tacku")
+      setFirstOperand("0" + value)
+    }
+    
+   else if(!firstOperand.includes(".")){
+      console.log("ako nema tacku")
+      setFirstOperand(prev => prev + value)
+    } 
+  };
 
   // if (firstOperand.startsWith("0") && firstOperand.length === 1) {
   //   console.log("odje 2");
@@ -86,7 +95,7 @@ function App() {
           <div id="9" onClick={choose} className="number9 btn">
             9
           </div>
-          <div id="/" onClick={chooseOperator} className="divide btn">
+          <div id="/" onClick={(e) => chooseOperator(e)} className="divide btn">
             /
           </div>
           <div id="4" onClick={choose} className="number4 btn">
@@ -116,7 +125,7 @@ function App() {
           <div id="0" onClick={choose} className="number0 btn">
             0
           </div>
-          <div id="." onClick={chooseOperator} className="dot btn">
+          <div id="." onClick={chooseDot} className="dot btn">
             .
           </div>
           <div id="=" onClick={chooseEquals} className="equals btn">
