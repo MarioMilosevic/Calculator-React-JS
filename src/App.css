@@ -26,6 +26,7 @@ body {
   width: 90%;
   height: 20%;
   margin: 1rem auto 0;
+  border: 1px solid black;
 }
 
 .calculations,
