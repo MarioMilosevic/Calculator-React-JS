@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 function App() {
   const [firstOperand, setFirstOperand] = useState("0");
-  const [secondOperand, setSecondOperand] = useState();
+  const [secondOperand, setSecondOperand] = useState("");
 
   const operations = ["/", "+", "-", "*"];
   const equals = "=";
@@ -11,18 +11,12 @@ function App() {
   const choose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
 
-    // const isFirstValueOperation = operations.some((operation) =>
-    //   value.startsWith(operation)
-    // );
-    // console.log(isFirstValueOperation)
     if (firstOperand === "0") {
       setFirstOperand("");
     }
     setFirstOperand((prev) => prev + value);
 
-    // if (isFirstValueOperation) {
-    //   setFirstOperand(firstOperand + value);
-    // }
+  
   };
 
   const chooseOperator = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -32,46 +26,28 @@ function App() {
 
     if (operations.some((operation) => firstOperand.includes(operation)))
       return;
-    // if (firstOperand === "0") {
-    // }
-    setFirstOperand((prev) => prev + value);
+
+    setSecondOperand(firstOperand + value);
+    setFirstOperand("");
   };
 
-  const chooseEquals = () => {};
+  const chooseEquals = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const value = (e.target as HTMLButtonElement).id;
+    
+  };
 
   const chooseDot = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
 
-    if(firstOperand === "0" && !firstOperand.includes(".")){
-      console.log("ako je nula i nema tacku")
-      setFirstOperand("0" + value)
+    if (firstOperand === "0" && !firstOperand.includes(".")) {
+      console.log("ako je nula i nema tacku");
+      setFirstOperand("0" + value);
+    } else if (!firstOperand.includes(".")) {
+      console.log("ako nema tacku");
+      setFirstOperand((prev) => prev + value);
     }
-    
-   else if(!firstOperand.includes(".")){
-      console.log("ako nema tacku")
-      setFirstOperand(prev => prev + value)
-    } 
   };
 
-  // if (firstOperand.startsWith("0") && firstOperand.length === 1) {
-  //   console.log("odje 2");
-  //   setFirstOperand("");
-  //   setFirstOperand((prev) => prev + value);
-  // }
-  // const isFirstDigit =
-  //   firstOperand === "" && ["+", "-", "*", "/", "="].indexOf(value) === -1;
-  // const isStartsWithZero =
-  //   firstOperand === "0" && ["+", "-", "*", "/", "="].indexOf(value) === -1;
-  // console.log(isFirstDigit)
-  // console.log(isStartsWithZero)
-
-  // setFirstOperand(prev => {
-  //   if(prev.startsWith("0")){
-  //     return prev = value
-  //   } else {
-  //     return prev += value
-  //   }
-  // })
 
   return (
     <>
