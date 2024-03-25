@@ -1,13 +1,10 @@
 import "./App.css";
 import { useState } from "react";
-import { addFn, subtractFn, multiplyFn, divideFn } from "./helperFunctions";
 function App() {
   const [firstOperand, setFirstOperand] = useState("0");
   const [secondOperand, setSecondOperand] = useState("");
 
   const operations = ["/", "+", "-", "*"];
-  const equals = "=";
-  const dot = ".";
 
   const choose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
@@ -20,21 +17,37 @@ function App() {
 
   const chooseOperator = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
-
     console.log(value);
-
     if (operations.some((operation) => firstOperand.includes(operation)))
       return;
+    const { a, b, operation } = getInputs();
 
-    setSecondOperand(firstOperand + value);
-    setFirstOperand("");
+    if (a && b && operation) {
+      const result = String(calculateResult(a, b, operation));
+      setSecondOperand(result + value);
+      setFirstOperand("");
+    } else {
+      setSecondOperand(firstOperand + value);
+      setFirstOperand("");
+    }
   };
 
-  const chooseEquals = () => {
+  const getInputs = () => {
     const a = firstOperand;
     const bAndOperation = secondOperand;
     const b = bAndOperation.slice(0, -1);
     const operation = bAndOperation.slice(-1);
+    const inputs = {
+      a,
+      b,
+      operation,
+    };
+    console.log("inputs", inputs);
+    return inputs;
+  };
+
+  const chooseEquals = () => {
+    const { a, b, operation } = getInputs();
     const result = String(calculateResult(a, b, operation));
     setFirstOperand(result);
     setSecondOperand("");
@@ -47,7 +60,6 @@ function App() {
   ) => {
     const firstToNumber = Number(first);
     const secondToNumber = Number(second);
-
     let result;
     switch (operation) {
       case "+":
@@ -70,7 +82,6 @@ function App() {
 
   const chooseDot = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
-
     if (firstOperand === "0" && !firstOperand.includes(".")) {
       console.log("ako je nula i nema tacku");
       setFirstOperand("0" + value);
