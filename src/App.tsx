@@ -17,7 +17,6 @@ function App() {
 
   const chooseOperator = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
-    console.log(value);
     if (operations.some((operation) => secondOperand.includes(operation))) {
       return;
     }
@@ -43,7 +42,6 @@ function App() {
       b,
       operation,
     };
-    console.log("inputs", inputs);
     return inputs;
   };
 
@@ -84,10 +82,8 @@ function App() {
   const chooseDot = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
     if (firstOperand === "0" && !firstOperand.includes(".")) {
-      console.log("ako je nula i nema tacku");
       setFirstOperand("0" + value);
     } else if (!firstOperand.includes(".")) {
-      console.log("ako nema tacku");
       setFirstOperand((prev) => prev + value);
     }
   };
