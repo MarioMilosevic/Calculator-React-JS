@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import { addFn, subtractFn, multiplyFn, divideFn } from "./helperFunctions";
 function App() {
   const [firstOperand, setFirstOperand] = useState("0");
   const [secondOperand, setSecondOperand] = useState("");
@@ -15,8 +16,6 @@ function App() {
       setFirstOperand("");
     }
     setFirstOperand((prev) => prev + value);
-
-  
   };
 
   const chooseOperator = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -31,10 +30,44 @@ function App() {
     setFirstOperand("");
   };
 
-  const chooseEquals = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const value = (e.target as HTMLButtonElement).id;
-    
+  const chooseEquals = () => {
+    const a = firstOperand;
+    const bAndOperation = secondOperand;
+    const b = bAndOperation.slice(0, -1);
+    const operation = bAndOperation.slice(-1);
+    const result = String(calculateResult(a, b, operation));
+    setFirstOperand(result)
+    setSecondOperand('')
   };
+
+  const calculateResult = (
+    first: string,
+    second: string,
+    operation: string
+  ) => {
+    const firstToNumber = Number(first);
+    const secondToNumber = Number(second);
+
+    let result;
+    switch (operation) {
+      case "+":
+        result = secondToNumber + firstToNumber;
+        break;
+      case "-":
+        result = secondToNumber - firstToNumber;
+        break;
+      case "*":
+        result = secondToNumber * firstToNumber;
+        break;
+      case "/":
+        result = secondToNumber / firstToNumber;
+        break;
+      default:
+        result = NaN;
+    }
+    return result;
+  };
+  // OVO IZNAD TREBAM
 
   const chooseDot = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
@@ -47,7 +80,6 @@ function App() {
       setFirstOperand((prev) => prev + value);
     }
   };
-
 
   return (
     <>
