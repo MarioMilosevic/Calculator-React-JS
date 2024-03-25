@@ -18,8 +18,9 @@ function App() {
   const chooseOperator = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
     console.log(value);
-    if (operations.some((operation) => firstOperand.includes(operation)))
+    if (operations.some((operation) => secondOperand.includes(operation))) {
       return;
+    }
     const { a, b, operation } = getInputs();
 
     if (a && b && operation) {
