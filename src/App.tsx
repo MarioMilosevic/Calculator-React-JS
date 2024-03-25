@@ -17,14 +17,13 @@ function App() {
 
   const chooseOperator = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
-
     if (firstOperand && secondOperand && operation) {
       const result = String(
         calculateResult(firstOperand, secondOperand, operation)
       );
-      setSecondOperand(result + value);
+      setSecondOperand(result);
       setFirstOperand("");
-      setOperation("");
+      setOperation(value);
     } else {
       setSecondOperand(firstOperand);
       setFirstOperand("");
