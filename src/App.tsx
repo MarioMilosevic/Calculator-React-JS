@@ -81,11 +81,11 @@ function App() {
 
   const chooseDot = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
-    if (firstOperand === "0" && !firstOperand.includes(".")) {
+    if (firstOperand.length === 0 && !firstOperand.includes(".")) {
       setFirstOperand("0" + value);
     } else if (!firstOperand.includes(".")) {
       setFirstOperand((prev) => prev + value);
-    }
+    } 
   };
 
   const clearOperands = () => {
