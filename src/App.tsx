@@ -17,6 +17,9 @@ function App() {
 
   const chooseOperator = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
+
+    if (operation && secondOperand) return;
+
     if (firstOperand && secondOperand && operation) {
       const result = String(
         calculateResult(firstOperand, secondOperand, operation)
