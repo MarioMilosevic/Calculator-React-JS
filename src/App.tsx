@@ -36,8 +36,8 @@ function App() {
     const b = bAndOperation.slice(0, -1);
     const operation = bAndOperation.slice(-1);
     const result = String(calculateResult(a, b, operation));
-    setFirstOperand(result)
-    setSecondOperand('')
+    setFirstOperand(result);
+    setSecondOperand("");
   };
 
   const calculateResult = (
@@ -67,7 +67,6 @@ function App() {
     }
     return result;
   };
-  // OVO IZNAD TREBAM
 
   const chooseDot = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
@@ -81,6 +80,20 @@ function App() {
     }
   };
 
+  const clearOperands = () => {
+    setFirstOperand("0");
+    setSecondOperand("");
+  };
+
+  const deleteOperand = () => {
+    if (firstOperand !== "0") {
+      setFirstOperand((prev) => {
+        const newResult = prev.slice(0, -1);
+        return newResult === "" ? "0" : newResult;
+      });
+    }
+  };
+
   return (
     <>
       <div className="calculator">
@@ -90,8 +103,12 @@ function App() {
         </div>
 
         <div className="clearDelete">
-          <div className="clear">CLEAR</div>
-          <div className="delete">DELETE</div>
+          <div className="clear" onClick={clearOperands}>
+            CLEAR
+          </div>
+          <div className="delete" onClick={deleteOperand}>
+            DELETE
+          </div>
         </div>
         <div className="buttons">
           <div id="7" onClick={choose} className="number7 btn">
