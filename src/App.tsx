@@ -17,8 +17,10 @@ function App() {
 
   const chooseOperator = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const value = (e.target as HTMLButtonElement).id;
+    console.log('aaaaa')
 
-    if (operation && secondOperand) return;
+    // if (operation && secondOperand) return;
+    if(!firstOperand) return
 
     if (firstOperand && secondOperand && operation) {
       const result = String(
@@ -82,6 +84,7 @@ function App() {
   const clearOperands = () => {
     setFirstOperand("0");
     setSecondOperand("");
+    setFirstOperand("")
   };
 
   const deleteOperand = () => {
